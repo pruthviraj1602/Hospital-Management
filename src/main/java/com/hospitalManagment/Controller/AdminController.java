@@ -7,9 +7,7 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -54,5 +52,24 @@ public class AdminController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 
+    @PutMapping("/update-patient")
+    public ResponseEntity<Patient> updatePatient(@RequestBody Patient patient){
+        patient.setRole("PATIENT");
+        Patient patient1 = userServiceIMPL.savePatient(patient);
+        if(patient1!=null){
+            return ResponseEntity.status(HttpStatus.OK).body(patient1);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+    }
+
+    @PutMapping("update-doctor")
+    public ResponseEntity<Doctor> updateDoctor(@RequestBody Doctor doctor){
+        doctor.setRole("DOCTOR");
+        Doctor doctor1 = userServiceIMPL.saveDoctor(doctor);
+        if(doctor1!=null){
+            return ResponseEntity.status(HttpStatus.OK).body(doctor1);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+    }
 
 }

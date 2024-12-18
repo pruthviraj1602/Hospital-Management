@@ -36,6 +36,17 @@ public class Patient {
     @JsonManagedReference("patient-appointments")
     private List<Appointment> appointments;
 
+    @OneToMany(mappedBy = "patient",cascade = CascadeType.ALL)
+    @JsonManagedReference("patient-medicalRecord")
+    private List<medicalRecord> medicalRecords;
+
+    public List<medicalRecord> getMedicalRecords() {
+        return medicalRecords;
+    }
+
+    public void setMedicalRecords(List<medicalRecord> medicalRecords) {
+        this.medicalRecords = medicalRecords;
+    }
 
     public Integer getPatientId() {
         return patientId;

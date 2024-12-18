@@ -1,6 +1,6 @@
 package com.hospitalManagment.Entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -37,6 +37,17 @@ public class Doctor {
     @JsonManagedReference("doctor-appointments")
     private List<Appointment> appointments;
 
+    @OneToMany(mappedBy = "doctor",cascade = CascadeType.ALL)
+    @JsonManagedReference("doctor-medicalRecord")
+    private List<medicalRecord> medicalRecords;
+
+    public List<medicalRecord> getMedicalRecords() {
+        return medicalRecords;
+    }
+
+    public void setMedicalRecords(List<medicalRecord> medicalRecords) {
+        this.medicalRecords = medicalRecords;
+    }
 
     public String getDoctorContact() {
         return doctorContact;

@@ -33,6 +33,26 @@ public class Appointment {
     @JsonBackReference("doctor-appointments")
     private Doctor doctor;
 
+    private AppointmentStatus status;
+
+
+
+
+    public String getAppointmentTime() {
+        return appointmentTime;
+    }
+
+    public void setAppointmentTime(String appointmentTime) {
+        this.appointmentTime = appointmentTime;
+    }
+
+    public AppointmentStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(AppointmentStatus status) {
+        this.status = status;
+    }
 
     public Integer getAppointmentId() {
         return appointmentId;
