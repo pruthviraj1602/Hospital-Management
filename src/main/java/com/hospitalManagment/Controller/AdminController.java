@@ -20,6 +20,7 @@ public class AdminController {
     private userServiceIMPL userServiceIMPL;
 
 
+
     @PostConstruct
     public void saveAdmin(){
         Patient patient=new Patient();
@@ -72,4 +73,21 @@ public class AdminController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 
+    @DeleteMapping("/deletePatient/{patientId}")
+    public ResponseEntity<?> deletePatient(@PathVariable Integer patientId){
+        Integer i = userServiceIMPL.deletePatient(patientId);
+        if(i!=null){
+            return ResponseEntity.status(HttpStatus.OK).body("Patient Deleted ");
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Patient Not Deleted ");
+    }
+
+    @DeleteMapping("/deleteDoctor/{doctorId}")
+    public ResponseEntity<?> deleteDoctor(@PathVariable Integer doctorId){
+        Integer i = userServiceIMPL.deleteDoctor(doctorId);
+        if(i!=null){
+            return ResponseEntity.status(HttpStatus.OK).body("Doctor Deleted");
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Doctor Not Deleted");
+    }
 }

@@ -34,6 +34,8 @@ public class userServiceIMPL implements userService {
     }
 
 
+
+
     @Override
     public List<Patient> getAllUser() {
         return patientRepository.findAll();
@@ -42,6 +44,11 @@ public class userServiceIMPL implements userService {
     @Override
     public Patient getPatient(Integer patientId) {
         return patientRepository.getPatientByPatientId(patientId);
+    }
+
+    @Override
+    public Integer deletePatient(Integer patientId) {
+        return patientRepository.deletePatientByPatientId(patientId);
     }
 
 
@@ -56,5 +63,8 @@ public class userServiceIMPL implements userService {
         return doctorRepository.getDoctorByDoctorId(doctorId);
     }
 
-
+    @Override
+    public Integer deleteDoctor(Integer doctorId) {
+        return doctorRepository.deleteDoctorByDoctorId(doctorId);
+    }
 }

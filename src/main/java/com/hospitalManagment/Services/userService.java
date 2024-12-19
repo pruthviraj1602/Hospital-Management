@@ -19,7 +19,7 @@ public interface userService {
 
     public Patient getPatient(Integer patientId);
 
-//    public Patient updatePatient(Patient patient);
+    public Integer deletePatient(Integer patientId);
 
 
     //Doctor
@@ -29,5 +29,6 @@ public interface userService {
 
     public Doctor getDoctor(Integer doctorId);
 
-//    public Doctor updateDoctor(Doctor doctor);
+    public Integer deleteDoctor(Integer doctorId);
+
 }
