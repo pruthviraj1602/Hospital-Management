@@ -15,4 +15,7 @@ public interface appointmentRepository extends JpaRepository<Appointment,Integer
      @Transactional
      @Query("UPDATE Appointment a SET a.status = :status WHERE a.id = :appointmentId")
      public int updateAppointmentStatus(@Param("appointmentId") Integer appointmentId, @Param("status") AppointmentStatus status);
+
+     public Appointment getAppointmentByAppointmentId(Integer appointmentId);
+
 }

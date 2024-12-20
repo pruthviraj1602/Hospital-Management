@@ -35,6 +35,11 @@ public class Appointment {
 
     private AppointmentStatus status;
 
+    @OneToOne(mappedBy = "appointment",cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private scheduleAppointment scheduleAppointment;
+
+
 
 
 
