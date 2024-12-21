@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 @Service
 public class appointmentServiceIMPL implements appointmentService {
@@ -61,11 +62,16 @@ public class appointmentServiceIMPL implements appointmentService {
 //        getting mail from patient table
         String patientEmail = patient.getPatientEmail();
 
-//        System.out.println(patientEmail);
+
 
         String message="Your Appointment Schedule at: "+scheduleAppointment.getAppointmentScheduleDate()+" & Time: "+scheduleAppointment.getAppointmentScheduleTime();
         String subject="Appointment Schedule";
         emailServiceIMPL.sendEmail(patientEmail,message,subject);
         return scheduleRepository.save(scheduleAppointment);
+    }
+
+    @Override
+    public List<Appointment> getAppointments() {
+        return appointmentRepository.findAll();
     }
 }

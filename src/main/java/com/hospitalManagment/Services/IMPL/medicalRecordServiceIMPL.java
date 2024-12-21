@@ -8,6 +8,7 @@ import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class medicalRecordServiceIMPL implements medicalRecordService {
@@ -20,5 +21,10 @@ public class medicalRecordServiceIMPL implements medicalRecordService {
     public medicalRecord saveRecords(medicalRecord record) {
         record.setDate(LocalDate.now().toString());
         return medicalRecordRepository.save(record);
+    }
+
+    @Override
+    public List<medicalRecord> getMedicalRecords() {
+        return medicalRecordRepository.findAll();
     }
 }

@@ -39,9 +39,28 @@ public class Appointment {
     @JsonManagedReference
     private scheduleAppointment scheduleAppointment;
 
+    @OneToOne(mappedBy = "appointment",cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private Bill bill;
 
 
+    //Getter And Setter
 
+    public com.hospitalManagment.Entities.scheduleAppointment getScheduleAppointment() {
+        return scheduleAppointment;
+    }
+
+    public void setScheduleAppointment(com.hospitalManagment.Entities.scheduleAppointment scheduleAppointment) {
+        this.scheduleAppointment = scheduleAppointment;
+    }
+
+    public Bill getBill() {
+        return bill;
+    }
+
+    public void setBill(Bill bill) {
+        this.bill = bill;
+    }
 
     public String getAppointmentTime() {
         return appointmentTime;
