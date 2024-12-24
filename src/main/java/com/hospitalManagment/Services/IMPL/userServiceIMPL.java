@@ -2,8 +2,10 @@ package com.hospitalManagment.Services.IMPL;
 
 import com.hospitalManagment.Entities.Doctor;
 import com.hospitalManagment.Entities.Patient;
+import com.hospitalManagment.Entities.User;
 import com.hospitalManagment.Repositories.doctorRepository;
 import com.hospitalManagment.Repositories.patientRepository;
+import com.hospitalManagment.Repositories.userRepository;
 import com.hospitalManagment.Services.userService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +23,23 @@ public class userServiceIMPL implements userService {
     @Autowired
     private doctorRepository doctorRepository;
 
+    @Autowired
+    private userRepository userRepository;
 
+    @Override
+    public User SaveUser(User user) {
+        return userRepository.save(user);
+    }
+
+    @Override
+    public Integer getUser(Integer userId) {
+        return null;
+    }
+
+    @Override
+    public List<User> getUsers() {
+        return userRepository.findAll();
+    }
 
     @Override
     public Patient savePatient(Patient patient) {

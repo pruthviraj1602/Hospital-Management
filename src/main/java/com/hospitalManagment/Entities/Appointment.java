@@ -33,6 +33,7 @@ public class Appointment {
     @JsonBackReference("doctor-appointments")
     private Doctor doctor;
 
+    @Enumerated(EnumType.STRING)
     private AppointmentStatus status;
 
     @OneToOne(mappedBy = "appointment",cascade = CascadeType.ALL)

@@ -24,6 +24,7 @@ public class Bill {
 
     private String billTime;
 
+    @Enumerated(EnumType.STRING)
     private paymentStatus paymentStatus;
 
 

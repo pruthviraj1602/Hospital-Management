@@ -4,6 +4,7 @@ import com.hospitalManagment.Entities.*;
 import com.hospitalManagment.Repositories.appointmentRepository;
 import com.hospitalManagment.Repositories.patientRepository;
 import com.hospitalManagment.Repositories.scheduleAppointmentRepository;
+import com.hospitalManagment.Repositories.userRepository;
 import com.hospitalManagment.Services.appointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,10 @@ public class appointmentServiceIMPL implements appointmentService {
     @Autowired
     private emailServiceIMPL emailServiceIMPL;
 
+    @Autowired
+    private userRepository userRepository;
+
+
     @Override
     public Appointment saveAppointment(Appointment appointment) {
        appointment.setAppointmentDate(LocalDate.now().toString());
@@ -37,33 +42,25 @@ public class appointmentServiceIMPL implements appointmentService {
         return appointmentRepository.save(appointment);
     }
 
-//    @Override
-//    public int updateAppointmentStatus(updateAppointmentResponse appointmentResponse) {
-//
-//        Integer appointmentId = appointmentResponse.getAppointmentId();
-//        AppointmentStatus status = appointmentResponse.getStatus();
-//        int appointment = appointmentRepository.updateAppointmentStatus(appointmentId, status);
-//        if(appointment==0){
-//            throw new RuntimeException("No appointment found with id " + appointmentId);
-//        }
-//        return appointment;
-//    }
-
-
     @Override
     public scheduleAppointment scheduleAppointment(scheduleAppointment scheduleAppointment) {
         Integer appointmentId = scheduleAppointment.getAppointment().getAppointmentId();
         Appointment appointment = appointmentRepository.getAppointmentByAppointmentId(appointmentId);
         //Get Patient from Appointment table
         Integer patientId = appointment.getPatient().getPatientId();
+        System.out.println(patientId);
         Patient patient = patientRepository.getPatientByPatientId(patientId);
 
-//        getting mail from patient table
-        String patientEmail = patient.getPatientEmail();
+        Integer userId = patient.getUser().getUserId();
+        System.out.println(userId);
+        User userById = userRepository.getUserByUserId(userId);
+
+        String userEmail = userById.getUserEmail();
+        System.out.println(userEmail);
 
         String message="Your Appointment Schedule at: "+scheduleAppointment.getAppointmentScheduleDate()+" & Time: "+scheduleAppointment.getAppointmentScheduleTime();
         String subject="Appointment Schedule";
-        emailServiceIMPL.sendEmail(patientEmail,message,subject);
+        emailServiceIMPL.sendEmail(userEmail,message,subject);
 
         //When Mail is Send then Appointment schedule is stored in the appointment table where it converts pending -> schedule
         //we get schedule throw AppointmentStatus entity

@@ -26,9 +26,9 @@ public class doctorController {
     private medicalRecordServiceIMPL medicalRecordServiceIMPL;
 
 
-    @PostMapping("/save-doctor")
+    @PostMapping("/add-doctor")
     public ResponseEntity<Doctor> saveUser(@RequestBody Doctor doctor){
-        doctor.setRole("DOCTOR");
+
         Doctor doctor1 = userServiceIMPL.saveDoctor(doctor);
 
         if(doctor1!=null){
@@ -46,15 +46,6 @@ public class doctorController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
     
-//    @PutMapping("/updateStatus")
-//    public ResponseEntity<?> updateStatus(@RequestBody updateAppointmentResponse appointmentResponse){
-//        int appointment = appointmentServiceIMPL.updateAppointmentStatus(appointmentResponse);
-//
-//        if(appointment!=0){
-//            return ResponseEntity.status(HttpStatus.OK).body("Patient Status Updated:-> "+appointmentResponse.getStatus());
-//        }
-//         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Patient Status Not Updated ");
-//    }
 
 
 

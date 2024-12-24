@@ -22,6 +22,7 @@ public class scheduleAppointment {
     @JsonBackReference
     private Appointment appointment;
 
+    @Enumerated(EnumType.STRING)
     private scheduleStatus scheduleStatus;
 
     //Setter And Getter

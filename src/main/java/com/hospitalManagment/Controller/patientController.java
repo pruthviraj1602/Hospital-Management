@@ -19,9 +19,9 @@ public class patientController {
     @Autowired
     private appointmentServiceIMPL appointmentServiceIMPL;
 
-    @PostMapping("/save-patient")
+    @PostMapping("/add-patient")
     public ResponseEntity<Patient> saveUser(@RequestBody Patient patient){
-        patient.setRole("PATIENT");
+
         Patient patient1 = userServiceIMPL.savePatient(patient);
 
         if(patient1!=null){

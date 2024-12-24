@@ -22,16 +22,7 @@ public class nurseController {
     @Autowired
     private billServiceIMPL billServiceIMPL;
 
-    @PostMapping("/save-nurse")
-    public ResponseEntity<Doctor> saveUser(@RequestBody Doctor doctor){
-        doctor.setRole("NURSE");
-        Doctor doctor1 = userServiceIMPL.saveDoctor(doctor);
 
-        if(doctor1!=null){
-            return ResponseEntity.status(HttpStatus.OK).body(doctor1);
-        }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-    }
 
     @PostMapping("/scheduleAppointment")
     public ResponseEntity<scheduleAppointment> scheduleAppointment(@RequestBody scheduleAppointment scheduleAppointment){

@@ -1,5 +1,6 @@
 package com.hospitalManagment.Entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -17,20 +18,18 @@ public class Patient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer patientId;
 
-    private String patientName;
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference("user-patient")
+    private User user;
 
+    private String patientName;
+    private String patientContact;
+    private String dateOfBirth;
     private String patientAddress;
 
-    private String patientContact;
 
-    @Column(unique = true)
-    private String patientEmail;
 
-    private String patientPassword;
-
-    private String patientDOB;
-
-    private String Role;
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     @JsonManagedReference("patient-appointments")
@@ -39,6 +38,26 @@ public class Patient {
     @OneToMany(mappedBy = "patient",cascade = CascadeType.ALL)
     @JsonManagedReference("patient-medicalRecord")
     private List<medicalRecord> medicalRecords;
+
+
+    //setter Getter
+
+
+    public String getPatientName() {
+        return patientName;
+    }
+
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
+    }
+
+    public String getPatientContact() {
+        return patientContact;
+    }
+
+    public void setPatientContact(String patientContact) {
+        this.patientContact = patientContact;
+    }
 
     public List<medicalRecord> getMedicalRecords() {
         return medicalRecords;
@@ -56,12 +75,21 @@ public class Patient {
         this.patientId = patientId;
     }
 
-    public String getPatientName() {
-        return patientName;
+
+    public User getUser() {
+        return user;
     }
 
-    public void setPatientName(String patientName) {
-        this.patientName = patientName;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        dateOfBirth = dateOfBirth;
     }
 
     public String getPatientAddress() {
@@ -72,45 +100,7 @@ public class Patient {
         this.patientAddress = patientAddress;
     }
 
-    public String getPatientContact() {
-        return patientContact;
-    }
 
-    public void setPatientContact(String patientContact) {
-        this.patientContact = patientContact;
-    }
-
-    public String getPatientEmail() {
-        return patientEmail;
-    }
-
-    public void setPatientEmail(String patientEmail) {
-        this.patientEmail = patientEmail;
-    }
-
-    public String getPatientPassword() {
-        return patientPassword;
-    }
-
-    public void setPatientPassword(String patientPassword) {
-        this.patientPassword = patientPassword;
-    }
-
-    public String getPatientDOB() {
-        return patientDOB;
-    }
-
-    public void setPatientDOB(String patientDOB) {
-        this.patientDOB = patientDOB;
-    }
-
-    public String getRole() {
-        return Role;
-    }
-
-    public void setRole(String role) {
-        Role = role;
-    }
 
     public List<Appointment> getAppointments() {
         return appointments;

@@ -1,6 +1,7 @@
 package com.hospitalManagment.Entities;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -16,13 +17,14 @@ public class Doctor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer doctorId;
 
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference("user-doctor")
+    private User user;
+
     private String doctorName;
-
-    private String doctorEmail;
-
-    private String doctorPassword;
-
     private String doctorContact;
+    private String doctorAddress;
 
     private String specialization;
 
@@ -30,7 +32,7 @@ public class Doctor {
 
     private String availability;
 
-    private String Role;
+
 
 
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
@@ -41,12 +43,16 @@ public class Doctor {
     @JsonManagedReference("doctor-medicalRecord")
     private List<medicalRecord> medicalRecords;
 
-    public List<medicalRecord> getMedicalRecords() {
-        return medicalRecords;
+
+    //setter Getter
+
+
+    public String getDoctorName() {
+        return doctorName;
     }
 
-    public void setMedicalRecords(List<medicalRecord> medicalRecords) {
-        this.medicalRecords = medicalRecords;
+    public void setDoctorName(String doctorName) {
+        this.doctorName = doctorName;
     }
 
     public String getDoctorContact() {
@@ -57,6 +63,31 @@ public class Doctor {
         this.doctorContact = doctorContact;
     }
 
+    public String getDoctorAddress() {
+        return doctorAddress;
+    }
+
+    public void setDoctorAddress(String doctorAddress) {
+        this.doctorAddress = doctorAddress;
+    }
+
+    public List<medicalRecord> getMedicalRecords() {
+        return medicalRecords;
+    }
+
+    public void setMedicalRecords(List<medicalRecord> medicalRecords) {
+        this.medicalRecords = medicalRecords;
+    }
+
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public Integer getDoctorId() {
         return doctorId;
     }
@@ -65,29 +96,7 @@ public class Doctor {
         this.doctorId = doctorId;
     }
 
-    public String getDoctorName() {
-        return doctorName;
-    }
 
-    public void setDoctorName(String doctorName) {
-        this.doctorName = doctorName;
-    }
-
-    public String getDoctorEmail() {
-        return doctorEmail;
-    }
-
-    public void setDoctorEmail(String doctorEmail) {
-        this.doctorEmail = doctorEmail;
-    }
-
-    public String getDoctorPassword() {
-        return doctorPassword;
-    }
-
-    public void setDoctorPassword(String doctorPassword) {
-        this.doctorPassword = doctorPassword;
-    }
 
     public String getSpecialization() {
         return specialization;
@@ -112,15 +121,6 @@ public class Doctor {
     public void setAvailability(String availability) {
         this.availability = availability;
     }
-
-    public String getRole() {
-        return Role;
-    }
-
-    public void setRole(String role) {
-        Role = role;
-    }
-
     public List<Appointment> getAppointments() {
         return appointments;
     }

@@ -2,6 +2,7 @@ package com.hospitalManagment.Controller;
 
 import com.hospitalManagment.Entities.*;
 import com.hospitalManagment.Services.IMPL.appointmentServiceIMPL;
+import com.hospitalManagment.Services.IMPL.billServiceIMPL;
 import com.hospitalManagment.Services.IMPL.medicalRecordServiceIMPL;
 import com.hospitalManagment.Services.IMPL.userServiceIMPL;
 import jakarta.annotation.PostConstruct;
@@ -25,21 +26,31 @@ public class AdminController {
     @Autowired
     private medicalRecordServiceIMPL medicalRecordServiceIMPL;
 
+    @Autowired
+    private billServiceIMPL billServiceIMPL;
 
 
     @PostConstruct
     public void saveAdmin(){
-        Patient patient=new Patient();
-        patient.setPatientId(1);
-        patient.setPatientName("ADMIN");
-        patient.setPatientEmail("admin12@gmail.com");
-        patient.setPatientPassword("123456");
-        patient.setPatientContact("9898989898");
-        patient.setRole("ADMIN");
 
-        userServiceIMPL.savePatient(patient);
+        User user=new User();
+        user.setUserId(1);
+        user.setUserEmail("Admin12@gmail.com");
+        user.setUserPassword("12345");
+        user.setRole("ADMIN");
+
+        userServiceIMPL.SaveUser(user);
     }
 
+
+    @GetMapping("/getUsers")
+    public ResponseEntity<List<User>> getUser(){
+        List<User> users = userServiceIMPL.getUsers();
+        if(users!=null){
+            return ResponseEntity.status(HttpStatus.OK).body(users);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+    }
 
     @GetMapping("/getDoctors")
     public ResponseEntity<List<Doctor>> getDoctors(){
@@ -61,7 +72,7 @@ public class AdminController {
 
     @PutMapping("/update-patient")
     public ResponseEntity<Patient> updatePatient(@RequestBody Patient patient){
-        patient.setRole("PATIENT");
+
         Patient patient1 = userServiceIMPL.savePatient(patient);
         if(patient1!=null){
             return ResponseEntity.status(HttpStatus.OK).body(patient1);
@@ -71,7 +82,7 @@ public class AdminController {
 
     @PutMapping("update-doctor")
     public ResponseEntity<Doctor> updateDoctor(@RequestBody Doctor doctor){
-        doctor.setRole("DOCTOR");
+
         Doctor doctor1 = userServiceIMPL.saveDoctor(doctor);
         if(doctor1!=null){
             return ResponseEntity.status(HttpStatus.OK).body(doctor1);
@@ -125,7 +136,33 @@ public class AdminController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 
+    @GetMapping("getBills")
+    public ResponseEntity<List<Bill>> getBills(){
+        List<Bill> bills = billServiceIMPL.getBills();
+        if(bills!=null){
+            return ResponseEntity.status(HttpStatus.OK).body(bills);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+    }
 
+    @GetMapping("getBill/{billId}")
+    public ResponseEntity<Bill> getBill(@PathVariable Integer billId){
+        Bill bill = billServiceIMPL.getBill(billId);
+        if(bill!=null){
+            return ResponseEntity.status(HttpStatus.OK).body(bill);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+    }
+
+
+    @GetMapping("getBillsByDate/{billDate}")
+    public ResponseEntity<List<Bill>> getBillsByDate(@PathVariable String billDate){
+        List<Bill> billByDate = billServiceIMPL.getBillByDate(billDate);
+        if(billByDate!=null){
+            return ResponseEntity.status(HttpStatus.OK).body(billByDate);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+    }
 
 
 
