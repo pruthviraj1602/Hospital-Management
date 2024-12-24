@@ -1,7 +1,8 @@
 package com.hospitalManagment.Controller;
 
-import com.hospitalManagment.Entities.Doctor;
-import com.hospitalManagment.Entities.Patient;
+import com.hospitalManagment.Entities.*;
+import com.hospitalManagment.Services.IMPL.appointmentServiceIMPL;
+import com.hospitalManagment.Services.IMPL.medicalRecordServiceIMPL;
 import com.hospitalManagment.Services.IMPL.userServiceIMPL;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,12 @@ public class AdminController {
 
     @Autowired
     private userServiceIMPL userServiceIMPL;
+
+    @Autowired
+    private appointmentServiceIMPL appointmentServiceIMPL;
+
+    @Autowired
+    private medicalRecordServiceIMPL medicalRecordServiceIMPL;
 
 
 
@@ -91,6 +98,35 @@ public class AdminController {
     }
 
 
-//    @GetMapping("/getAppointments")
+    @GetMapping("/getAppointments")
+    public ResponseEntity<List<Appointment>> getAllAppointments(){
+        List<Appointment> appointments = appointmentServiceIMPL.getAppointments();
+        if(appointments!=null){
+            return ResponseEntity.status(HttpStatus.OK).body(appointments);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+    }
+
+    @GetMapping("/getMedicalRecords")
+    public ResponseEntity<List<medicalRecord>> medicalRecords(){
+        List<medicalRecord> medicalRecords = medicalRecordServiceIMPL.getMedicalRecords();
+        if(medicalRecords!=null){
+            return ResponseEntity.status(HttpStatus.OK).body(medicalRecords);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+    }
+
+    @GetMapping("/getScheduleAppointment")
+    public ResponseEntity<List<scheduleAppointment>> getAllSchedule(){
+        List<scheduleAppointment> scheduleAppointment = appointmentServiceIMPL.getScheduleAppointment();
+        if(scheduleAppointment!=null){
+            return ResponseEntity.status(HttpStatus.OK).body(scheduleAppointment);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+    }
+
+
+
+
 
 }

@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/doctor")
 public class doctorController {
@@ -44,17 +46,15 @@ public class doctorController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
     
-    @PutMapping("/updateStatus")
-    public ResponseEntity<?> updateStatus(@RequestBody updateAppointmentResponse appointmentResponse){
-        int appointment = appointmentServiceIMPL.updateAppointmentStatus(appointmentResponse);
-
-        if(appointment!=0){
-            return ResponseEntity.status(HttpStatus.OK).body("Patient Status Updated:-> "+appointmentResponse.getStatus());
-        }
-         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Patient Status Not Updated ");
-    }
-
-
+//    @PutMapping("/updateStatus")
+//    public ResponseEntity<?> updateStatus(@RequestBody updateAppointmentResponse appointmentResponse){
+//        int appointment = appointmentServiceIMPL.updateAppointmentStatus(appointmentResponse);
+//
+//        if(appointment!=0){
+//            return ResponseEntity.status(HttpStatus.OK).body("Patient Status Updated:-> "+appointmentResponse.getStatus());
+//        }
+//         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Patient Status Not Updated ");
+//    }
 
 
 
@@ -69,4 +69,12 @@ public class doctorController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 
+    @GetMapping("/getDoctor-Appointment/{doctorId}")
+    public ResponseEntity<List<Appointment>> getAppointment(@PathVariable Integer doctorId){
+        List<Appointment> appointment = appointmentServiceIMPL.getAppointment(doctorId);
+        if(appointment!=null){
+            return ResponseEntity.status(HttpStatus.OK).body(appointment);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+    }
 }

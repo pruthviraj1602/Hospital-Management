@@ -1,9 +1,6 @@
 package com.hospitalManagment.Controller;
 
-import com.hospitalManagment.Entities.Bill;
-import com.hospitalManagment.Entities.Doctor;
-import com.hospitalManagment.Entities.scheduleAppointment;
-import com.hospitalManagment.Entities.updateAppointmentResponse;
+import com.hospitalManagment.Entities.*;
 import com.hospitalManagment.Services.IMPL.appointmentServiceIMPL;
 import com.hospitalManagment.Services.IMPL.billServiceIMPL;
 import com.hospitalManagment.Services.IMPL.userServiceIMPL;
@@ -38,6 +35,7 @@ public class nurseController {
 
     @PostMapping("/scheduleAppointment")
     public ResponseEntity<scheduleAppointment> scheduleAppointment(@RequestBody scheduleAppointment scheduleAppointment){
+        scheduleAppointment.setScheduleStatus(scheduleStatus.PENDING);
         scheduleAppointment scheduleAppointment1 = appointmentServiceIMPL.scheduleAppointment(scheduleAppointment);
         if(scheduleAppointment1!=null){
             return ResponseEntity.status(HttpStatus.CREATED).body(scheduleAppointment1);
@@ -45,14 +43,24 @@ public class nurseController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 
-    @PutMapping("/updateStatus")
-    public ResponseEntity<?> updateStatus(@RequestBody updateAppointmentResponse appointmentResponse){
-        int appointment = appointmentServiceIMPL.updateAppointmentStatus(appointmentResponse);
+    @PutMapping("/update-scheduleAppointment")
+    public ResponseEntity<scheduleAppointment> updateScheduleAppointment(@RequestBody scheduleAppointment scheduleAppointment){
+      scheduleAppointment scheduleAppointment1 = appointmentServiceIMPL.scheduleAppointment(scheduleAppointment);
+      if(scheduleAppointment1!=null){
+          return ResponseEntity.status(HttpStatus.OK).body(scheduleAppointment);
+      }
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+    }
 
-        if(appointment!=0){
-            return ResponseEntity.status(HttpStatus.OK).body("Patient Status Updated:-> "+appointmentResponse.getStatus());
+
+
+    @PutMapping("/updateStatus/{scheduleId}")
+    public ResponseEntity<?> updateStatus(@PathVariable Integer scheduleId){
+        int i = appointmentServiceIMPL.updateScheduleAppointmentStatus(scheduleId);
+        if(i!=0){
+            return ResponseEntity.status(HttpStatus.OK).body("schedule Appointment Update as COMPLETE at Id: "+scheduleId);
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Patient Status Not Updated ");
+         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Schedule Appointment Not Update");
     }
 
     @PostMapping("/payment")
@@ -63,6 +71,9 @@ public class nurseController {
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
+
+
+
 
 
 }

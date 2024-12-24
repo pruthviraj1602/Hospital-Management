@@ -8,6 +8,9 @@ public class updateAppointmentResponse {
     private Integer appointmentId;
     private AppointmentStatus status;
 
+
+    //
+
     public Integer getAppointmentId() {
         return appointmentId;
     }

@@ -22,6 +22,19 @@ public class scheduleAppointment {
     @JsonBackReference
     private Appointment appointment;
 
+    private scheduleStatus scheduleStatus;
+
+    //Setter And Getter
+
+
+    public com.hospitalManagment.Entities.scheduleStatus getScheduleStatus() {
+        return scheduleStatus;
+    }
+
+    public void setScheduleStatus(com.hospitalManagment.Entities.scheduleStatus scheduleStatus) {
+        this.scheduleStatus = scheduleStatus;
+    }
+
     public Integer getScheduleId() {
         return scheduleId;
     }
@@ -54,3 +67,4 @@ public class scheduleAppointment {
         this.appointment = appointment;
     }
 }
+

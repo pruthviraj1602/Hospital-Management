@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface appointmentRepository extends JpaRepository<Appointment,Integer> {
 
 //    public Appointment updateAppointmentStatus(Integer appointmentId, AppointmentStatus status);
@@ -18,4 +20,9 @@ public interface appointmentRepository extends JpaRepository<Appointment,Integer
 
      public Appointment getAppointmentByAppointmentId(Integer appointmentId);
 
+     @Query(value = "SELECT * FROM appointment WHERE doctor_id = :doctorId", nativeQuery = true)
+     public  List<Appointment> getAppointmentsByDoctorId(@Param("doctorId") Integer doctorId);
+
+     @Query(value = "SELECT * FROM appointment WHERE doctor_id = :doctorId", nativeQuery = true)
+     public  List<Integer> getAppointments(@Param("doctorId") Integer doctorId);
 }

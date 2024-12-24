@@ -1,9 +1,7 @@
 package com.hospitalManagment.Entities;
 
-public enum AppointmentStatus {
+public enum scheduleStatus{
 
     PENDING,
-
-    SCHEDULE
-
+    COMPLETE
 }

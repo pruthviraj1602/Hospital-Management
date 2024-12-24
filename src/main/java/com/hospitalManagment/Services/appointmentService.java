@@ -10,10 +10,18 @@ public interface appointmentService {
 
     public Appointment saveAppointment(Appointment appointment);
 
-    public int updateAppointmentStatus(updateAppointmentResponse appointmentResponse);
 
-    public scheduleAppointment scheduleAppointment(scheduleAppointment scheduleAppointment);
 
     public List<Appointment> getAppointments();
+
+    public List<Appointment> getAppointment(Integer doctorId);
+
+
+    //schedule Appointments
+
+    public scheduleAppointment scheduleAppointment(scheduleAppointment scheduleAppointment);
+    public List<scheduleAppointment> getScheduleAppointment();
+
+    public int updateScheduleAppointmentStatus(Integer scheduleId);
 
 }
