@@ -35,9 +35,9 @@ public class AdminController {
 
         User user=new User();
         user.setUserId(1);
-        user.setUserEmail("Admin12@gmail.com");
+        user.setUserEmail("admin12@gmail.com");
         user.setUserPassword("12345");
-        user.setRole("ADMIN");
+        user.setRole("ROLE_ADMIN");
 
         userServiceIMPL.SaveUser(user);
     }

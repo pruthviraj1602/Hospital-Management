@@ -8,6 +8,8 @@ import com.hospitalManagment.Repositories.patientRepository;
 import com.hospitalManagment.Repositories.userRepository;
 import com.hospitalManagment.Services.userService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,8 +28,14 @@ public class userServiceIMPL implements userService {
     @Autowired
     private userRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
+
     @Override
     public User SaveUser(User user) {
+        user.setUserPassword(passwordEncoder().encode(user.getUserPassword()));
         return userRepository.save(user);
     }
 

@@ -22,7 +22,7 @@ public class publicController {
 
     @PostMapping("/save-nurse")
     public ResponseEntity<User> saveNurse(@RequestBody User user){
-       user.setRole("NURSE");
+       user.setRole("ROLE_NURSE");
 
         User user1 = userServiceIMPL.SaveUser(user);
         if(user1!=null){
@@ -33,7 +33,7 @@ public class publicController {
 
     @PostMapping("/save-patient")
     public ResponseEntity<User> savePatient(@RequestBody User user){
-        user.setRole("Patient");
+        user.setRole("ROLE_PATIENT");
 
         User user1 = userServiceIMPL.SaveUser(user);
         if(user1!=null){
@@ -44,7 +44,7 @@ public class publicController {
 
     @PostMapping("/save-doctor")
     public ResponseEntity<User> saveDoctor(@RequestBody User user){
-        user.setRole("Doctor");
+        user.setRole("ROLE_DOCTOR");
 
         User user1 = userServiceIMPL.SaveUser(user);
         if(user1!=null){
@@ -52,6 +52,5 @@ public class publicController {
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
-
 
 }
